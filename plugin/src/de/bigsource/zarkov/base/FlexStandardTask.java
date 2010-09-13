@@ -1850,24 +1850,24 @@ public class FlexStandardTask extends ZarkovTask
 		// OUTPUT DEBUG INFORMATION
 		if (_sdk == "" || _sdk == null)
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("general.usage_of_preferences"));
+			throw new BuildException(TranslationUtil.getTranslation("general.usage_of_preferences"));
 		}
 		else
 		{
-			System.out.println(ZarkovUtil.getTranslation("general.using_flex").replace("{#SDK#}", _sdk));
+			System.out.println(TranslationUtil.getTranslation("general.using_flex").replace("{#SDK#}", _sdk));
 			
 			ArrayList<AbstractParam> lc = _args.get("load-config");
 			
 			if (lc == null || lc.size() == 0)
 			{
-				System.out.println(ZarkovUtil.getTranslation("general.standard_configuration"));
+				System.out.println(TranslationUtil.getTranslation("general.standard_configuration"));
 			}
 			else
 			{
 				for (int i = 0; i < lc.size(); i++)
 				{
 					AbstractParam param = lc.get(i);
-					System.out.println(ZarkovUtil.getTranslation("general.using_configuration") + param);
+					System.out.println(TranslationUtil.getTranslation("general.using_configuration") + param);
 				}
 			}
 		}

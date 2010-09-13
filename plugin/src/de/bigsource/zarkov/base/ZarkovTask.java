@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -285,6 +286,33 @@ public class ZarkovTask extends Task
 				addMessage("Please specify an absolute path for basedir!");
 			}
 			return null;
+		}
+	}
+	
+	public static void checkError(boolean error, String errormessage)
+	{
+		if (error == true)
+		{
+			if (errormessage != null)
+			{
+				throw new BuildException(errormessage);
+			} else
+			{
+				throw new BuildException(TranslationUtil.getTranslation("general.compiler_had_error"));
+			}
+		}
+	}
+	
+	public static void onlyFirstError(boolean onlyFirstError, long lasterror)
+	{
+		if (!onlyFirstError)
+		{
+			Calendar calnow = Calendar.getInstance();
+			lasterror = calnow.getTimeInMillis();
+			while ((lasterror + 800) > calnow.getTimeInMillis())
+			{
+				calnow = Calendar.getInstance();
+			}
 		}
 	}
 }
