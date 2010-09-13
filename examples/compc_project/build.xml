@@ -1,0 +1,12 @@
+<project name="Compc Project" default="create_swc" basedir=".">
+
+	<target name="create_swc" description="create swc">
+		<bigsource.compc basedir="${basedir}">
+			<source_path path="source/as" />
+			<namespace uri="http://www.bigsource.de/projects/as3framework" manifest="manifest.xml" />
+			<include_namespaces name="http://www.bigsource.de/projects/as3framework" />
+			<output path="swc/utilities.swc" />
+		</bigsource.compc>
+	</target>
+
+</project>

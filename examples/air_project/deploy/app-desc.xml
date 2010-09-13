@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<application xmlns="http://ns.adobe.com/air/application/1.0"> 
+    <id>de.bigsource.airapplication</id> 
+    <version>1.0</version> 
+    <filename>Air Application</filename> 
+    <name>Air Application</name> 
+    <copyright>Copyright (c) 2008 BigSource</copyright> 
+    <initialWindow> 
+        <title>Air Application</title> 
+        <content> 
+            application.swf 
+        </content> 
+        <systemChrome>standard</systemChrome> 
+        <transparent>false</transparent> 
+        <visible>true</visible> 
+        <minimizable>true</minimizable> 
+        <maximizable>false</maximizable> 
+        <resizable>false</resizable> 
+        <width>420</width> 
+        <height>440</height> 
+        <minSize>320 240</minSize> 
+        <maxSize>1280 960</maxSize> 
+    </initialWindow>  
+    <installFolder>BigSource/Air Application</installFolder> 
+    <programMenuFolder>Air Application</programMenuFolder> 
+    <!--icon> 
+        <image16x16>icons/smallIcon.png</image16x16> 
+        <image32x32>icons/mediumIcon.png</image32x32> 
+        <image48x48>icons/bigIcon.png</image48x48> 
+        <image128x128>icons/biggestIcon.png</image128x128>  
+    </icon--> 
+    <customUpdateUI>true</customUpdateUI> 
+    <allowBrowserInvocation>true</allowBrowserInvocation>
+</application>

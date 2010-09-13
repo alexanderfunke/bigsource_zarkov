@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/halo" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:view="de.bigsource.zarkov.view.components.*"
+	applicationComplete="init()"
+    backgroundColor="0xd9d9d9"
+    paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0"
+    layout="absolute">
+    
+	<fx:Script>
+		<![CDATA[
+		
+			import de.bigsource.zarkov.notifications.ApplicationNotifications;
+			import gs.OverwriteManager;
+			import mx.controls.Alert;
+			
+			public static const NAME : String = "ZarkovLauncher";
+			public static var localVersion : Number = Number(CONFIG::version);
+			
+			private var _facade : ApplicationFacade;
+			
+			private function init():void
+			{
+				trace("onAddedToStage");
+				OverwriteManager.init(OverwriteManager.ALL);
+				if(_facade==null)
+				{
+					_facade = ApplicationFacade.getInstance(NAME);
+					_facade.startup(this, stage);
+				}
+			}
+			
+			private function checkUpdate():void
+			{
+				_facade.sendNotification(ApplicationNotifications.ON_UPDATE_CHECK_REQUEST);	
+			}
+			
+			private function showHelp():void
+			{
+				_facade.sendNotification(ApplicationNotifications.ON_LINKOUT, "http://zarkov.bigsource.de");	
+			}
+			
+			private function showSettings():void
+			{
+				Alert.show("This Feature is currently not available", "Coming Soon.");
+			}
+
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Style>
+		<![CDATA[
+			
+			@namespace fx "http://ns.adobe.com/mxml/2009";
+			@namespace mx "library://ns.adobe.com/flex/halo";
+    		@namespace s "library://ns.adobe.com/flex/spark";
+			
+			@font-face {
+			    src:url("../../../../assets/fonts/MyriadPro-Regular.otf");
+			    fontFamily: MyriadProEmbedded;
+			    fontWeight: normal;
+			    advancedAntiAliasing: true;
+			    embedAsCFF: false;
+			}
+			 
+			@font-face {
+			    src:url("../../../../assets/fonts/MyriadPro-Bold.otf");
+			    fontFamily: MyriadProEmbedded;
+			    fontWeight: bold;
+			    advancedAntiAliasing: true;
+			    embedAsCFF: false;
+			}
+			
+			mx|Panel {
+			   	font-family: MyriadProEmbedded;
+			   	fontWeight: bold;
+			   	fontSize: 15px;
+			}
+			
+			mx|Tree {
+			   	font-family: MyriadProEmbedded;
+			   	fontWeight: normal;
+			   	fontSize: 12px;
+			}
+			
+			mx|DataGrid {
+			   	font-family: MyriadProEmbedded;
+			   	fontWeight: normal;
+			   	fontSize: 12px;
+			}
+			mx|Button {
+			   	font-family: MyriadProEmbedded;
+			   	fontWeight: normal;
+			   	fontSize: 12px;
+			}
+			
+			mx|TextArea {
+			   	font-family: MyriadProEmbedded;
+			   	fontWeight: normal;
+			   	fontSize: 12px;
+			   	color: #333333;
+			}
+			
+			mx|VBox {
+			   	paddingTop:0;
+			   	paddingRight:0;
+			   	paddingBottom:0;
+			   	paddingLeft:0;
+			}
+			
+			mx|Application {
+			   	font-family: MyriadProEmbedded;
+			   	fontWeight: normal;
+			}
+
+			mx|ApplicationControlBar {
+			    cornerRadius:    0;
+			    borderStyle: none;
+			}
+			
+			mx|Alert {
+			   	font-family: MyriadProEmbedded;
+			   	fontWeight: normal;
+			}
+			
+			.buildDetailLabel {
+				fontSize: 13px;
+			}
+			
+			.buildDetailValue {
+				fontSize: 13px;
+				fontWeight:normal;
+			}
+			
+		]]>
+	</fx:Style>
+
+	<mx:states>
+		<mx:State name="overviewState" />
+		<mx:State name="helpState" />
+	</mx:states>
+	
+	<mx:VBox width="100%" height="100%">
+		<mx:ApplicationControlBar
+			width="100%" height="39" borderSkin="de.bigsource.zarkov.view.components.skins.HeaderSkin" paddingTop="0" creationComplete="init()">
+			<mx:Image source="@Embed(source='../../../../assets/images/logo.png')" />
+			<mx:Label id="version" text="" paddingTop="11"/>
+			<mx:Spacer width="100%"/>
+			<!--mx:Button label="Settings" icon="@Embed(source='../../../../assets/images/wrench.png')" skin="de.bigsource.zarkov.view.components.skins.ButtonSkin" click="showSettings()"/-->
+			<mx:Button label="Help" icon="@Embed(source='../../../../assets/images/help.png')" skin="de.bigsource.zarkov.view.components.skins.ButtonSkin" click="showHelp()"/>
+			<mx:Button label="Check Update" icon="@Embed(source='../../../../assets/images/package.png')" skin="de.bigsource.zarkov.view.components.skins.ButtonSkin" click="checkUpdate()"/>
+		</mx:ApplicationControlBar>
+		<view:UIOverview id="overview"/>
+	</mx:VBox>
+
+</mx:WindowedApplication>

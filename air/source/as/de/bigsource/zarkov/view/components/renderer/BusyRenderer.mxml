@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<my:VBox 
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:my="library://ns.adobe.com/flex/halo" 
+    horizontalAlign="center" verticalAlign="middle"
+    width="16" height="16">
+    
+	<mx:Script>
+        <![CDATA[
+        
+            import mx.core.BitmapAsset;
+            import de.bigsource.zarkov.view.components.UILoadingCircle;
+        
+            [Embed(source="../../../../../../../assets/images/accept.png")]
+            [Bindable]
+            public var imgFinished:Class;
+            
+            [Embed(source="../../../../../../../assets/images/exclamation.png")]
+            [Bindable]
+            public var imgRunning:Class;
+            
+            [Embed(source="../../../../../../../assets/images/exclamation.png")]
+            [Bindable]
+            public var imgException:Class;
+            
+            private var _loadingCircle:UILoadingCircle;
+
+            override public function set data(p_data:Object):void {
+               	
+               	if(_loadingCircle==null){
+               		_loadingCircle = new UILoadingCircle();
+					_loadingCircle.alpha = 0;					_loadingCircle.x  = (30-_loadingCircle.width)/2;					_loadingCircle.y  = (18-_loadingCircle.height)/2;
+					rawChildren.addChild(_loadingCircle);
+               	}
+               	
+               	super.data = p_data;
+               	var img:BitmapAsset = new BitmapAsset();
+
+               	switch(data["state"])
+               	{
+               		case "running":
+               			 img = new BitmapAsset();
+               			 _loadingCircle.start();
+               			 _loadingCircle.alpha =1;
+               		break;
+               		case "finished":
+               			 _loadingCircle.stop();
+               			 _loadingCircle.alpha =0;
+               			 img = new imgFinished() as BitmapAsset;
+               		break;
+               		case "exception":
+               			 _loadingCircle.stop();
+               			 _loadingCircle.alpha =0;
+               			img = new imgException() as BitmapAsset;
+               		break;
+               	}
+
+                stateImage.source=img;
+            }
+        ]]>
+    </mx:Script>
+
+
+    <my:Image id="stateImage" />
+</my:VBox>

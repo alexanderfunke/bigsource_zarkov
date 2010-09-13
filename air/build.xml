@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<project basedir="." default="compile_application" name="Zarkov Air">
+
+	<property file="build.properties" />
+
+	<target name="compile_application" description="Compile the Main swf">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex.home}">
+			<default_frame_rate value="${swf.default.fps}" />
+			<default_background_color value="${swf.default.bgcolor}" />
+			<default_size width="${swf.default.width}" height="${swf.default.height}" />
+			<source_path path="source/as" />
+			<source_path path="source/libs" />
+			<library_path path="${flex.home}/frameworks/libs/air/airframework.swc" />
+			<library_path path="${flex.home}/frameworks/libs/air/airglobal.swc" />
+			<library_path path="${flex.home}/frameworks/libs/air/applicationupdater_ui4.swc" />
+			<file_specs path="${swf.application.class}" />
+			<output path="${swf.application.target}" />
+			<verbose_stacktraces value="true" />
+			<compiler__define name="CONFIG::version" value="${version}"/>
+		</bigsource.mxmlc>
+	</target>
+
+	<target name="launch" description="Launches the Air File with the Debug Launcher" depends="compile_application">
+		<bigsource.adl basedir="${basedir}" sdk="${flex.home}">
+			<app_desc path="deploy/app-desc.xml" />
+			<parameter value="arg1" />
+			<parameter value="arg2" />
+		</bigsource.adl>
+	</target>
+
+	<target name="package" description="Packages the Air File">
+		<bigsource.adt_package basedir="${basedir}" sdk="${flex.home}">
+			<air_file path="bin/bigsource_zarkov_base.dmg" />
+			<app_xml path="deploy/app-desc.xml" />
+			<keystore path="testcert.p12" />
+			<storetype value="pkcs12" />
+			<storepass value="12345" />
+			<rootpath path="deploy/" />
+			<add_file path="application.swf" />
+			<add_dir path="icons" />
+			<airtarget value="native" />
+		</bigsource.adt_package>
+	</target>
+
+	<target name="create_certificate" description="Creates a certificate for the Air File">
+		<bigsource.adt_certificate basedir="${basedir}" sdk="${flex.home}">
+			<common_name value="BigSource" />
+			<country value="DE" />
+			<organisation value="none" />
+			<organisation_unit value="Development" />
+			<storetype value="1024-RSA" />
+			<keystore path="testcert.p12" />
+			<keypass value="12345" />
+		</bigsource.adt_certificate>
+	</target>
+
+	<target name="sign" description="Signs an Intermediate File and creates the Air File">
+		<bigsource.adt_sign basedir="${basedir}" sdk="${flex.home}">
+			<air_intermediate_file path="air_application.airi" />
+			<air_file path="air_application.air" />
+			<keystore path="testcert.p12" />
+			<storetype value="pkcs12" />
+			<storepass value="12345" />
+		</bigsource.adt_sign>
+	</target>
+
+	<target name="distribute">
+		<echo file="bin/latest.txt" append="false" message="${version}" />
+		<zip destfile="bin/latest.zip" basedir="${deploydir}" excludes=".svn, **/.svn, app-desc.xml, .DS_Store" />
+	</target>
+
+</project>

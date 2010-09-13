@@ -1,0 +1,21 @@
+<project basedir="./" name="AS2 Project" default="compile_application">
+
+	<target name="compile_application">
+		<bigsource.mtasc basedir="${basedir}">
+			<v/>
+			<cp path="source/as"/>
+			<main path="source/as/MainClass.as"/>
+			<version value="7"/>
+			<swf path="deploy/swf/application.swf"/>
+			<header_for_mtasc bgcolor="ff9900" fps="31" height="500" width="500"/>
+		</bigsource.mtasc>
+	</target>
+	
+	<target name="open_flashplayer" depends="compile_application">
+		<bigsource.flashplayer basedir="${basedir}" swf="deploy/swf/application.swf"/>
+	</target>
+	
+	<target name="open_browser" depends="compile_application">
+		<bigsource.browser basedir="${basedir}" url="deploy/index.html"/>
+	</target>
+</project>

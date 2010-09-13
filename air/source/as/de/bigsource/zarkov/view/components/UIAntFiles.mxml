@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/halo" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	width="40%" height="100%"
+	dropShadowEnabled="false"
+	dropShadowVisible="false"
+	title="AntFiles"
+	creationComplete="onCreationComplete()">
+	
+	<fx:Script>
+		<![CDATA[
+
+			import de.bigsource.zarkov.model.ant.AntTarget;			import de.bigsource.zarkov.model.ant.AntFile;			import de.bigsource.zarkov.model.ant.AntTask;
+			import de.bigsource.zarkov.view.events.AntFilesEvent;
+			
+			import flash.events.NativeDragEvent;
+			import flash.desktop.NativeDragManager;
+			import flash.desktop.ClipboardFormats;			import flash.filesystem.File;			import mx.controls.Alert;
+						
+			import flash.events.Event;
+	
+			private function onCreationComplete():void
+			{
+				addEventListener(NativeDragEvent.NATIVE_DRAG_ENTER, onDragEnter);
+				addEventListener(NativeDragEvent.NATIVE_DRAG_DROP, onDragDrop);
+			}
+			
+			private function onDragEnter(e:NativeDragEvent):void
+			{
+				if (NativeDragManager.dragInitiator == this) return; // If your dragging over yourself, ignore
+				if (!e.clipboard.hasFormat(ClipboardFormats.URL_FORMAT)) return;
+				NativeDragManager.acceptDragDrop(this);
+			}
+
+			private function onDragDrop(e:NativeDragEvent):void
+			{
+				dispatchEvent(new AntFilesEvent(AntFilesEvent.ON_FILE_ADD, e.clipboard.getData(ClipboardFormats.URL_FORMAT) as String));
+			}
+
+			private function onDoubleClick(event:Event):void
+			{
+				var target:AntTarget;
+				if(antFiles.selectedItem is AntFile)
+				{
+					var antFile:AntFile = antFiles.selectedItem as AntFile;
+					for each (var childTarget : AntTarget in antFile.children) {
+						if(childTarget.isDefault){
+							target = childTarget;
+						}
+					}
+				}
+				else
+				{
+					target = antFiles.selectedItem as AntTarget;
+				}
+				if(target!=null)
+				{
+					dispatchEvent(new AntFilesEvent(AntFilesEvent.ON_BUILD_START, target));
+				}
+			}
+
+			private function tree_labelFunc(item : Object) : String 
+			{
+				var suffix : String = "";
+				if (antFiles.dataDescriptor.hasChildren(item)) 
+				{
+					suffix = " (" + item.children.length + ")";
+				}
+				return item.name + suffix;
+			}
+			
+			public function set vo(p_vo:*):void
+			{
+				antFiles.dataProvider = p_vo;
+			}
+			
+			public function destroy() : void {
+				
+			}
+			
+			private function refreshFiles() : void
+			{	
+				dispatchEvent(new AntFilesEvent(AntFilesEvent.ON_FILELIST_REFRESH));
+			}
+			
+			private function sortFiles() : void
+			{	
+				dispatchEvent(new AntFilesEvent(AntFilesEvent.ON_FILELIST_SORT));
+			}
+			
+			private function addFile() : void
+			{	
+				var myFile:File = new File();
+				var txtFilter:FileFilter = new FileFilter("XML", "*.xml");
+				
+				myFile.browseForOpen("Bitte wählen Sie eine Datei", [txtFilter]);
+				myFile.addEventListener(Event.SELECT, fileSelected);
+			}
+			
+			private function fileSelected(event:Event):void {
+				var f:File = event.target as File;
+				dispatchEvent(new AntFilesEvent(AntFilesEvent.ON_FILE_ADD, f.nativePath));
+			}
+			
+			
+			private function removeFile() : void
+			{	
+				var file:AntFile;
+				var target:AntTarget;
+				if(antFiles.selectedItem is AntFile)
+				{
+					file = antFiles.selectedItem as AntFile;
+				} else if(antFiles.selectedItem is AntTarget)
+				{
+					target = antFiles.selectedItem as AntTarget;					file = target.antFile;
+				} else if(antFiles.selectedItem is AntTask)
+				{
+					var task:AntTask = antFiles.selectedItem as AntTask;					target = task.antTarget;
+					file = target.antFile;
+				}
+				if(file!=null)
+				{
+					Alert.show("Do you really want to remove that buildfile \""+file.name+"\"?", "Delete", Alert.OK | Alert.CANCEL, null, removeFileAnswer,null, Alert.CANCEL);
+				} else {
+					Alert.show("Please select a file you want to remove.", "Error");
+				}
+			}
+			
+			private function removeFileAnswer(p_obj:Object):void {
+				if (p_obj["detail"] == Alert.OK)
+				{
+					var file:AntFile = antFiles.selectedItem as AntFile;
+					dispatchEvent(new AntFilesEvent(AntFilesEvent.ON_FILE_REMOVE, file.path));
+ 				}
+ 				else if (p_obj["detail"] == Alert.CANCEL)
+ 				{
+ 				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<mx:Tree 
+		id="antFiles"
+		labelFunction="tree_labelFunc" 
+		doubleClickEnabled="true" 
+		itemRenderer="de.bigsource.zarkov.view.components.renderer.TreeRenderer" 
+		itemDoubleClick="onDoubleClick(event)"
+		width="100%" height="100%"
+		borderSkin="{null}"/>
+		
+		<mx:ControlBar paddingTop="3" paddingRight="3" paddingBottom="3" paddingLeft="3" borderSkin="de.bigsource.zarkov.view.components.skins.ControlBarSkin">
+		<mx:Button icon="@Embed(source='../../../../../../assets/images/page_add.png')" 
+			click="addFile()" 
+			skin="{null}" />
+		<mx:Button icon="@Embed(source='../../../../../../assets/images/page_delete.png')"
+			click="removeFile()"
+			skin="{null}"/>
+		<mx:Spacer width="100%" />
+		<mx:Button icon="@Embed(source='../../../../../../assets/images/arrow_down.png')" 
+			click="sortFiles()" 
+			skin="{null}" />
+		<mx:Button icon="@Embed(source='../../../../../../assets/images/arrow_refresh.png')"
+			click="refreshFiles()"
+			skin="{null}"/>
+		
+		</mx:ControlBar>
+</mx:Panel>

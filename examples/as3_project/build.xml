@@ -1,0 +1,19 @@
+<project basedir="./" name="AS3 Project" default="compile_application">
+
+	<target name="compile_application">
+		<bigsource.mxmlc basedir="${basedir}" sdk="/flashlibs/flex_sdk_3.3">
+			<source_path path="source/as"/>
+			<library_path path="source/swc/utilities.swc"/>
+			<file_specs path="source/as/App.as"/>
+			<output path="deploy/swf/application.swf"/>
+		</bigsource.mxmlc>
+	</target>
+	
+	<target name="compile_and_open_flashplayer" depends="compile_application">
+		<bigsource.flashplayer basedir="${basedir}" swf="deploy/swf/application.swf"/>
+	</target>
+	
+	<target name="compile_and_open_browser" depends="compile_application">
+		<bigsource.browser basedir="${basedir}" url="deploy/index.html"/>
+	</target>
+</project>

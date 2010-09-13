@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+    <mx:Script><![CDATA[
+    
+    	[Embed(source="../assets/spiderman.jpg")]
+		private var heroImage1 : Class;
+		
+		[Embed(source="../assets/superman.jpg")]
+		private var heroImage2 : Class;
+		
+		[Embed(source="../assets/batman.jpg")]
+		private var heroImage3 : Class;
+		
+        public var m:Number;
+        public var n:Number;
+        public var hero:int = 0;
+        public function recalculate():void {
+            n = 42;
+            m = 40;
+            
+            switch(hero)
+            {
+				case 0:            		
+            		image1.source =  new heroImage1() as Bitmap;
+            		label1.text ="Spiderman";
+            	break;
+            	case 1:            		
+            		image1.source =  new heroImage2() as Bitmap;
+            		label1.text ="Superman";
+            	break;
+            	case 2:            		
+            		image1.source =  new heroImage3() as Bitmap;
+            		label1.text ="Batman";
+            	break;
+            	
+            	
+            }
+            button.label ="Give it another try.";
+            if(hero==2){
+            	hero = 0;
+            } else {
+            	hero++;
+            }
+        }
+    ]]></mx:Script>
+    
+    <mx:Button id="button" label="Which superhero am I?" click="recalculate();" />
+    <mx:Image id="image1"/>
+    <mx:Label id="label1" fontSize="20" fontWeight="bold" />
+</mx:Application>

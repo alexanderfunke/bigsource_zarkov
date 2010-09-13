@@ -1,0 +1,280 @@
+<project basedir="./" name="Zarkov Testtasks">
+
+	<property file="build.${user.name}.properties" />
+	
+	<taskdef file="zarkov/bigsoure_zarkov.xml" classpath="zarkov/bigsource_zarkov.jar"/>
+
+	<target name="test_mxmlc">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
+			<default_size height="600" width="700" />
+			<source_path path="source/as" />
+			<output path="deploy/swf/application.swf" />
+			<file_specs path="source/as/App.mxml" />
+		</bigsource.mxmlc>
+	</target>
+
+	<target name="test_mxmlc_flex4">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex4.home}">
+			<default_size height="600" width="700" />
+			<source_path path="source/as" />
+			<output path="deploy/swf/application.swf" />
+			<file_specs path="source/as/App.mxml" />
+		</bigsource.mxmlc>
+	</target>
+	
+	<target name="test_mxmlc_flex4_as3">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex4.home}">
+			<default_size height="600" width="700" />
+			<source_path path="source/as" />
+			<output path="deploy/swf/application.swf" />
+			<file_specs path="source/as/App.as" />
+		</bigsource.mxmlc>
+	</target>
+
+	<target name="test_mxmlc_error">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
+			<default_size height="600" width="700" />
+			<source_path path="source/as" />
+			<output path="deploy/swf/application.swf" />
+			<file_specs path="source/as/AppError.mxml" />
+		</bigsource.mxmlc>
+	</target>
+
+	<target name="test_mxmlc_flex4_error">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex4.home}">
+			<default_size height="600" width="700" />
+			<source_path path="source/as" />
+			<output path="deploy/swf/application.swf" />
+			<file_specs path="source/as/AppError.mxml" />
+		</bigsource.mxmlc>
+	</target>
+
+	<target name="test_mxmlc_wrong_sdk">
+		<bigsource.mxmlc basedir="${basedir}" sdk="/wrong/${flex3.home}">
+			<default_size height="600" width="700" />
+			<source_path path="source/as" />
+			<output path="deploy/swf/application.swf" />
+			<file_specs path="source/as/App.mxml" />
+		</bigsource.mxmlc>
+	</target>
+
+	<target name="test_mxmlc_no_filespecs">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
+			<default_size height="600" width="700" />
+			<source_path path="source/as" />
+			<output path="deploy/swf/application.swf" />
+		</bigsource.mxmlc>
+	</target>
+
+	<target name="test_flashplayer">
+		<bigsource.flashplayer basedir="${basedir}" swf="deploy/swf/application.swf" player="/workspace/flashlibs/flex_sdk_3.3/runtimes/player/mac/Flash Player.app" />
+	</target>
+
+	<target name="test_flashplayer_wrong_swf">
+		<bigsource.flashplayer basedir="${basedir}" swf="deploy/swf/application_wrong.swf" player="/workspace/flashlibs/flex_sdk_3.3/runtimes/player/mac/Flash Player.app" />
+	</target>
+
+	<target name="test_flashplayer_wrong_player">
+		<bigsource.flashplayer basedir="${basedir}" swf="deploy/swf/application.swf" player="/workspace/flashlibs/flex_sdk_3.3/runtimes/player/Flash Player.app" />
+	</target>
+
+	<target name="test_flashplayer_no_player">
+		<bigsource.flashplayer basedir="${basedir}" swf="deploy/swf/application.swf" />
+	</target>
+
+	<target name="test_flashplayer_no_swf">
+		<bigsource.flashplayer basedir="${basedir}" />
+	</target>
+
+	<target name="test_flashplayer_no_basedir">
+		<bigsource.flashplayer swf="deploy/swf/application.swf" player="/workspace/flashlibs/flex_sdk_3.3/runtimes/player/mac/Flash Player.app" />
+	</target>
+
+	<target name="test_browser_no_basedir_local">
+		<bigsource.browser url="deploy/index.html" />
+	</target>
+
+	<target name="test_browser_no_basedir_remote">
+		<bigsource.browser url="http://www.bigsource.de" />
+	</target>
+
+	<target name="test_browser_no_url">
+		<bigsource.browser basedir="${basedir}" />
+	</target>
+
+	<target name="test_browser">
+		<bigsource.browser basedir="${basedir}" url="deploy/index.html" />
+	</target>
+
+	<target name="test_mtasc_no_basedir">
+		<bigsource.mtasc mtasc="/workspace/flashlibs/mtasc/mtasc">
+			<v />
+			<cp path="source/as" />
+			<main path="source/as/MainClassAS2.as" />
+			<version value="7" />
+			<swf path="deploy/swf/as2application.swf" />
+			<header_for_mtasc bgcolor="ff9900" fps="31" height="500" width="500" />
+		</bigsource.mtasc>
+	</target>
+
+	<target name="test_mtasc_no_mtasc">
+		<bigsource.mtasc>
+			<v />
+			<cp path="source/as" />
+			<main path="source/as/MainClassAS2.as" />
+			<version value="7" />
+			<swf path="deploy/swf/as2application.swf" />
+			<header_for_mtasc bgcolor="ff9900" fps="31" height="500" width="500" />
+		</bigsource.mtasc>
+	</target>
+
+	<target name="test_mtasc">
+		<bigsource.mtasc basedir="${basedir}" mtasc="/workspace/flashlibs/mtasc/mtasc">
+			<v />
+			<cp path="source/as" />
+			<main path="source/as/MainClassAS2.as" />
+			<version value="7" />
+			<swf path="deploy/swf/as2application.swf" />
+			<header_for_mtasc bgcolor="ff9900" fps="31" height="500" width="500" />
+		</bigsource.mtasc>
+	</target>
+
+	<target name="test_compc">
+		<bigsource.compc basedir="${basedir}" sdk="${flex3.home}">
+			<source_path path="source/as" />
+			<namespace uri="http://www.bigsource.de/projects/as3framework" manifest="manifest.xml" />
+			<include_namespaces name="http://www.bigsource.de/projects/as3framework" />
+			<output path="source/swc/utilities.swc" />
+		</bigsource.compc>
+	</target>
+
+	<target name="test_compc_no_sdk">
+		<bigsource.compc basedir="${basedir}">
+			<source_path path="source/as" />
+			<namespace uri="http://www.bigsource.de/projects/as3framework" manifest="manifest.xml" />
+			<include_namespaces name="http://www.bigsource.de/projects/as3framework" />
+			<output path="source/swc/utilities.swc" />
+		</bigsource.compc>
+	</target>
+
+	<target name="test_compc_wrong_sdk">
+		<bigsource.compc basedir="${basedir}" sdk="/wrong/${flex3.home}">
+			<source_path path="source/as" />
+			<namespace uri="http://www.bigsource.de/projects/as3framework" manifest="manifest.xml" />
+			<include_namespaces name="http://www.bigsource.de/projects/as3framework" />
+			<output path="source/swc/utilities.swc" />
+		</bigsource.compc>
+	</target>
+
+	<target name="test_mxmlc_air">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
+			<default_frame_rate value="${swf.default.fps}" />
+			<default_background_color value="${swf.default.bgcolor}" />
+			<default_size width="${swf.default.width}" height="${swf.default.height}" />
+			<source_path path="source/as" />
+			<library_path path="${flex3.home}/frameworks/libs/air/airframework.swc" />
+			<library_path path="${flex3.home}/frameworks/libs/air/airglobal.swc" />
+			<file_specs path="${swf.application.class}" />
+			<output path="${swf.application.target}" />
+			<verbose_stacktraces value="true" />
+		</bigsource.mxmlc>
+	</target>
+
+	<target name="test_adl">
+		<bigsource.adl basedir="${basedir}" sdk="${flex3.home}">
+			<app_desc path="deploy/app-desc.xml" />
+			<parameter value="arg1" />
+			<parameter value="arg2" />
+		</bigsource.adl>
+	</target>
+
+	<target name="test_adt_package">
+		<bigsource.adt_package basedir="${basedir}" sdk="${flex3.home}">
+			<air_file path="air_application.air" />
+			<app_xml path="deploy/app-desc.xml" />
+			<keystore path="testcert.p12" />
+			<storetype value="pkcs12" />
+			<storepass value="12345" />
+			<rootpath path="deploy/" />
+			<add_file path="application.swf" />
+			<add_dir path="xml" />
+		</bigsource.adt_package>
+	</target>
+
+	<target name="test_adt_certificate">
+		<bigsource.adt_certificate basedir="${basedir}" sdk="${flex3.home}">
+			<common_name value="BigSource" />
+			<country value="DE" />
+			<organisation value="none" />
+			<organisation_unit value="Development" />
+			<storetype value="1024-RSA" />
+			<keystore path="testcert.p12" />
+			<keypass value="12345" />
+		</bigsource.adt_certificate>
+	</target>
+
+	<target name="test_adt_prepare">
+		<bigsource.adt_prepare basedir="${basedir}" sdk="${flex3.home}">
+			<air_intermediate_file path="air_application.airi" />
+			<app_xml path="deploy/app-desc.xml" />
+			<rootpath path="deploy/" />
+			<add_file path="application.swf" />
+		</bigsource.adt_prepare>
+	</target>
+
+	<target name="test_adt_sign">
+		<bigsource.adt_sign basedir="${basedir}" sdk="${flex3.home}">
+			<air_intermediate_file path="air_application.airi" />
+			<air_file path="air_application.air" />
+			<keystore path="testcert.p12" />
+			<storetype value="pkcs12" />
+			<storepass value="12345" />
+		</bigsource.adt_sign>
+	</target>
+	
+	<target name="test_dependencies" depends="dependency1">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
+			<default_size height="600" width="700" />
+			<source_path path="source/as" />
+			<output path="deploy/swf/application.swf" />
+			<file_specs path="source/as/App.mxml" />
+		</bigsource.mxmlc>
+	</target>
+	
+	<target name="test_double_dependencies" depends="double_dependency1, dependency2">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
+			<default_size height="600" width="700" />
+			<source_path path="source/as" />
+			<output path="deploy/swf/application.swf" />
+			<file_specs path="source/as/App.mxml" />
+		</bigsource.mxmlc>
+	</target>
+	
+	<target name="dependency1" depends="dependency2">
+		<bigsource.browser url="http://www.bigsource.de" />
+	</target>
+	
+	<target name="double_dependency1">
+		<bigsource.browser url="http://www.bigsource.de" />
+	</target>
+	
+	<target name="dependency2">
+		<bigsource.flashplayer basedir="${basedir}" swf="deploy/swf/application.swf" player="/workspace/flashlibs/flex_sdk_3.3/runtimes/player/mac/Flash Player.app" />
+	</target>
+	
+	<target name="test_haxe">
+		<bigsource.haxe basedir="${basedir}" haxe="/usr/bin/haxe">
+			<cp path="source/as/"/>
+			<swf_header bgcolor="eeeeee" height="430" width="170" fps="21" />
+			<swf path="example.swf" />
+			<main value="Example" />
+		</bigsource.haxe>
+	</target>
+	
+	<target name="test_echo">
+		<echo message="${user.name}" />
+	</target>
+	<target name="test_echo_body">
+		<echo>${user.name}</echo>
+	</target>
+</project>

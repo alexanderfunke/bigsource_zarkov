@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BigSource Zarkov
+Bundle-SymbolicName: de.bigsource.zarkov;singleton:=true
+Bundle-Version: 0.8.5.5
+Bundle-ClassPath: de.bigsource/
+Bundle-Activator: de.bigsource.zarkov.Activator
+Bundle-Vendor: BigSource GbR
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.apache.ant,
+ org.eclipse.ant.core,
+ org.eclipse.swt,
+ org.eclipse.jface,
+ org.eclipse.ui.workbench,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide
+Eclipse-LazyStart: true
+Export-Package: de.bigsource.zarkov.ant;uses:="org.apache.tools.ant"

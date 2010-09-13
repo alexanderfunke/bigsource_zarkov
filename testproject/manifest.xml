@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<componentPackage>
+
+	<!-- Utils -->
+	<component id="MathUtil" class="de.bigsource.utils.MathUtil" />
+	<component id="StringUtil" class="de.bigsource.utils.StringUtil" />
+	<component id="ObjectUtil" class="de.bigsource.utils.ObjectUtil" />
+	<component id="TextFieldUtil" class="de.bigsource.utils.TextFieldUtil" />
+	<component id="DateUtil" class="de.bigsource.utils.DateUtil" />
+	<component id="ColorUtil" class="de.bigsource.utils.ColorUtil" />
+	<component id="ArrayUtil" class="de.bigsource.utils.ArrayUtil" />
+	
+	<!-- Utils:Math:Geom -->
+	<component id="SimpleCircle" class="de.bigsource.utils.math.geom.SimpleCircle" />
+	<component id="SimplePoint" class="de.bigsource.utils.math.geom.SimplePoint" />
+	<component id="SimpleRectangle" class="de.bigsource.utils.math.geom.SimpleRectangle" />
+	
+</componentPackage>

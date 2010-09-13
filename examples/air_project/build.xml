@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<project basedir="." default="compile_application" name="Air Project">
+
+	<property file="build.properties" />
+
+	<target name="compile_application" description="Compile the Main swf">
+		<bigsource.mxmlc basedir="${basedir}">
+			<default_frame_rate value="${swf.default.fps}" />
+			<default_background_color value="${swf.default.bgcolor}" />
+			<default_size width="${swf.default.width}" height="${swf.default.height}" />
+			<source_path path="source/mxml" />
+			<library_path path="/flashlibs/flex_sdk_3.1/frameworks/libs/air/airframework.swc" />
+			<library_path path="/flashlibs/flex_sdk_3.1/frameworks/libs/air/airglobal.swc" />
+			<file_specs path="${swf.application.class}" />
+			<output path="${swf.application.target}" />
+			<verbose_stacktraces value="true" />
+		</bigsource.mxmlc>
+	</target>
+
+	<target name="launch" description="Launches the Air File with the Debug Launcher" depends="compile_application">
+		<bigsource.adl basedir="${basedir}">
+			<app_desc path="deploy/app-desc.xml" />
+			<parameter value="arg1" />
+			<parameter value="arg2" />
+		</bigsource.adl>
+	</target>
+
+	<target name="package" description="Packages the Air File">
+		<bigsource.adt_package basedir="${basedir}">
+			<air_file path="air_application.air" />
+			<app_xml path="deploy/app-desc.xml" />
+			<keystore path="testcert.p12" />
+			<storetype value="pkcs12" />
+			<storepass value="12345" />
+			<rootpath path="deploy/" />
+			<add_file path="application.swf" />
+			<add_dir path="xml"/>
+		</bigsource.adt_package>
+	</target>
+
+	<target name="create_certificate" description="Creates a certificate for the Air File">
+		<bigsource.adt_certificate basedir="${basedir}">
+			<common_name value="BigSource" />
+			<country value="DE" />
+			<organisation value="none" />
+			<organisation_unit value="Development" />
+			<storetype value="1024-RSA" />
+			<keystore path="testcert.p12" />
+			<keypass value="12345" />
+		</bigsource.adt_certificate>
+	</target>
+
+	<target name="prepare" description="Creates an Air Intermediate File">
+		<bigsource.adt_prepare basedir="${basedir}">
+			<air_intermediate_file path="air_application.airi" />
+			<app_xml path="deploy/app-desc.xml" />
+			<rootpath path="deploy/" />
+			<add_file path="application.swf" />
+		</bigsource.adt_prepare>
+	</target>
+
+	<target name="sign" description="Signs an Intermediate File and creates the Air File">
+		<bigsource.adt_sign basedir="${basedir}">
+			<air_intermediate_file path="air_application.airi" />
+			<air_file path="air_application.air" />
+			<keystore path="testcert.p12" />
+			<storetype value="pkcs12" />
+			<storepass value="12345" />
+		</bigsource.adt_sign>
+	</target>
+</project>
