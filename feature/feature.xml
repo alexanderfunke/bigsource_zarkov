@@ -2,7 +2,7 @@
 <feature
       id="de.bigsource.zarkov"
       label="BigSource Zarkov"
-      version="0.8.5.5"
+      version="0.9.0.0"
       provider-name="BigSource GbR"
       plugin="de.bigsource.zarkov">
 
@@ -14,7 +14,7 @@
       Source by BigSource Alexander Funke und Kim Christiansen GbR
 Visit zarkov.bigsource.de for updates and more free code.
 Please contact info@bigsource.de for more information.
-Copyright (c) 2009 BigSource Alexander Funke und Kim Christiansen
+Copyright (c) 2010 BigSource Alexander Funke und Kim Christiansen
 GbR
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
    </copyright>
@@ -39,7 +39,7 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
          id="de.bigsource.zarkov"
          download-size="48"
          install-size="0"
-         version="0.8.5.5"
+         version="0.9.0.0"
          unpack="false"/>
 
 </feature>
