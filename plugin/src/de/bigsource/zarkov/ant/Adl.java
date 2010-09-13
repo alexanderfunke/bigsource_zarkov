@@ -11,7 +11,7 @@ import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.ant.nested.ValueParam;
 import de.bigsource.zarkov.base.CO;
 import de.bigsource.zarkov.base.ZarkovTask;
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.AdlWrapper;
 
@@ -106,11 +106,11 @@ public class Adl extends ZarkovTask
 					this.quit();
 				}
 			}
-			ZarkovUtil.checkError(_error, _errormessage);
+			checkError(_error, _errormessage);
 		}
 		else
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("general.usage_of_preferences"));
+			throw new BuildException(TranslationUtil.getTranslation("general.usage_of_preferences"));
 		}
 	}
 	

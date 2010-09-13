@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 import org.apache.tools.ant.BuildException;
 
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.CompilerWrapper;
 
@@ -42,11 +42,11 @@ public class ACompc extends Compc
 				cal = Calendar.getInstance();
 				if (cal.getTimeInMillis() - starttime > _max_execution_time)
 				{
-					throw new BuildException(ZarkovUtil.getTranslation("general.max_execution_time"));
+					throw new BuildException(TranslationUtil.getTranslation("general.max_execution_time"));
 				}
 			}
-			ZarkovUtil.onlyFirstError(onlyFirstError, lasterror);
-			ZarkovUtil.checkError(_error, _errormessage);
+			onlyFirstError(onlyFirstError, lasterror);
+			checkError(_error, _errormessage);
 		}
 	}
 	

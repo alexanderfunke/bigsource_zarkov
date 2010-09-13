@@ -9,7 +9,7 @@ import de.bigsource.zarkov.ant.nested.BooleanParam;
 import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.base.CO;
 import de.bigsource.zarkov.base.ZarkovTask;
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.ApparatWrapper;
 
@@ -86,22 +86,22 @@ public class AbstractApparat extends ZarkovTask
 		
 		if (_apparatDirectory == "")
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("apparat.apparat_directory_not_set"));
+			throw new BuildException(TranslationUtil.getTranslation("apparat.apparat_directory_not_set"));
 		}
 		
 		if (!new File(_apparatDirectory).exists())
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("apparat.apparat_directory_not_found"));
+			throw new BuildException(TranslationUtil.getTranslation("apparat.apparat_directory_not_found"));
 		}
 		
 		if (_scala == "")
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("apparat.scala_not_set"));
+			throw new BuildException(TranslationUtil.getTranslation("apparat.scala_not_set"));
 		}
 		
 		if (!new File(_scala).exists())
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("apparat.scala_not_found"));
+			throw new BuildException(TranslationUtil.getTranslation("apparat.scala_not_found"));
 		}
 		
 		ZarkovTargetsView.addTarget("apparat", output, null);
@@ -110,7 +110,7 @@ public class AbstractApparat extends ZarkovTask
 		{
 			
 		}
-		ZarkovUtil.checkError(_error, _errormessage);
+		checkError(_error, _errormessage);
 		
 	}
 	

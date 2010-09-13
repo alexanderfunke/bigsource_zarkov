@@ -8,7 +8,7 @@ import org.apache.tools.ant.BuildException;
 import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.ant.nested.ValueParam;
 import de.bigsource.zarkov.base.CO;
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.CompilerWrapper;
 
@@ -114,17 +114,17 @@ public class AdtSign extends AbstractAdt
 		
 		if (_args.get(AIR_INTERMEDIATE_FILE) == null)
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("adt.specify_air_intermediate_file"));
+			throw new BuildException(TranslationUtil.getTranslation("adt.specify_air_intermediate_file"));
 		}
 		
 		if (_args.get(AIR_FILE) == null)
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("adt.specify_air_file"));
+			throw new BuildException(TranslationUtil.getTranslation("adt.specify_air_file"));
 		}
 		
 		if (_args.get(STORETYPE) == null)
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("adt.specify_storetype"));
+			throw new BuildException(TranslationUtil.getTranslation("adt.specify_storetype"));
 		}
 		
 		if (_args.get(ALIAS) != null)
@@ -163,12 +163,12 @@ public class AdtSign extends AbstractAdt
 					this.quit();
 				}
 			}
-			ZarkovUtil.onlyFirstError(onlyFirstError, lasterror);
-			ZarkovUtil.checkError(_error, _errormessage);
+			onlyFirstError(onlyFirstError, lasterror);
+			checkError(_error, _errormessage);
 		}
 		else
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("general.usage_of_preferences"));
+			throw new BuildException(TranslationUtil.getTranslation("general.usage_of_preferences"));
 		}
 	}
 	

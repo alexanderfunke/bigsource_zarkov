@@ -1,6 +1,7 @@
 package de.bigsource.zarkov.ant.nested;
 
 import de.bigsource.zarkov.base.ZarkovTask;
+import de.bigsource.zarkov.base.TranslationUtil;
 
 public class FrameParam extends AbstractParam {
 
@@ -12,11 +13,11 @@ public class FrameParam extends AbstractParam {
 	public String toString() {
 
 		if (_label == null) {
-			task.callException("You have to specify a label for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_value_for")+" " + option);
 		}
 
 		if (_class_name == null) {
-			task.callException("You have to specify a class_name for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_value_for")+" " + option);
 		}
 
 		if (_label != null && _class_name != null) {

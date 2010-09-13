@@ -1,6 +1,7 @@
 package de.bigsource.zarkov.ant.nested;
 
 import de.bigsource.zarkov.base.ZarkovTask;
+import de.bigsource.zarkov.base.TranslationUtil;
 
 public class DimensionParam extends AbstractParam {
 
@@ -11,11 +12,11 @@ public class DimensionParam extends AbstractParam {
 
 	public String toString() {
 		if (_width == null) {
-			task.callException("You have to specify a width for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_width_for")+" " + option);
 		}
 
 		if (_height == null) {
-			task.callException("You have to specify a height for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_width_for")+" " + option);
 		}
 
 		if (_width != null && _height != null) {

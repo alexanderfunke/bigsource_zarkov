@@ -7,7 +7,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 import de.bigsource.zarkov.Settings;
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 
 public class FlashPlayer extends Task
 {
@@ -46,29 +46,29 @@ public class FlashPlayer extends Task
 				String osName = System.getProperty("os.name");
 				if (_basedir == "")
 				{
-					throw new BuildException(ZarkovUtil.getTranslation("general.basedir_not_set"));
+					throw new BuildException(TranslationUtil.getTranslation("general.basedir_not_set"));
 				}
 				
 				if (_swf == "")
 				{
-					throw new BuildException(ZarkovUtil.getTranslation("flashplayer.swf_not_set"));
+					throw new BuildException(TranslationUtil.getTranslation("flashplayer.swf_not_set"));
 				}
 				
 				if (_player == "")
 				{
-					throw new BuildException(ZarkovUtil.getTranslation("flashplayer.executable_not_set"));
+					throw new BuildException(TranslationUtil.getTranslation("flashplayer.executable_not_set"));
 				}
 				
 				File executable = new File(_player);
 				if (!executable.exists())
 				{
-					throw new BuildException(ZarkovUtil.getTranslation("flashplayer.swf_not_set"));
+					throw new BuildException(TranslationUtil.getTranslation("flashplayer.swf_not_set"));
 				}
 				
 				File swfPath = new File(_basedir + "/" + _swf);
 				if (!swfPath.exists())
 				{
-					throw new BuildException(ZarkovUtil.getTranslation("flashplayer.executable_not_found").replace("{#PATH#}", _basedir + "/" + _swf));
+					throw new BuildException(TranslationUtil.getTranslation("flashplayer.executable_not_found").replace("{#PATH#}", _basedir + "/" + _swf));
 				}
 				
 				String[] parameters = new String[]
@@ -100,7 +100,7 @@ public class FlashPlayer extends Task
 		}
 		else
 		{
-			System.out.println(ZarkovUtil.getTranslation("flashplayer.deactivated"));
+			System.out.println(TranslationUtil.getTranslation("flashplayer.deactivated"));
 		}
 	}
 	

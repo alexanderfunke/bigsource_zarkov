@@ -13,7 +13,7 @@ import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.ant.nested.ValueParam;
 import de.bigsource.zarkov.base.CO;
 import de.bigsource.zarkov.base.FlexStandardTask;
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.CompilerWrapper;
 
@@ -200,11 +200,11 @@ public class AsDoc extends FlexStandardTask
 				cal = Calendar.getInstance();
 				if (cal.getTimeInMillis() - starttime > _max_execution_time)
 				{
-					throw new BuildException(ZarkovUtil.getTranslation("general.max_execution_time"));
+					throw new BuildException(TranslationUtil.getTranslation("general.max_execution_time"));
 				}
 			}
-			ZarkovUtil.onlyFirstError(onlyFirstError, lasterror);
-			ZarkovUtil.checkError(_error, _errormessage);
+			onlyFirstError(onlyFirstError, lasterror);
+			checkError(_error, _errormessage);
 		}
 	}
 	

@@ -9,7 +9,7 @@ import de.bigsource.zarkov.ant.nested.AbstractParam;
 import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.ant.nested.ValueParam;
 import de.bigsource.zarkov.base.CO;
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.CompilerWrapper;
 
@@ -146,12 +146,12 @@ public class AdtPackage extends AbstractAdt
 		
 		if (_args.get(ROOTPATH) == null)
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("adt.specify_rootpath"));
+			throw new BuildException(TranslationUtil.getTranslation("adt.specify_rootpath"));
 		}
 		
 		if (!_args.get(ROOTPATH).get(0).toString().endsWith("/"))
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("adt.rootpath_end"));
+			throw new BuildException(TranslationUtil.getTranslation("adt.rootpath_end"));
 		}
 		
 		ArrayList<String> command = new ArrayList<String>();
@@ -227,12 +227,12 @@ public class AdtPackage extends AbstractAdt
 				}
 			}
 			
-			ZarkovUtil.onlyFirstError(onlyFirstError, lasterror);
-			ZarkovUtil.checkError(_error, _errormessage);
+			onlyFirstError(onlyFirstError, lasterror);
+			checkError(_error, _errormessage);
 		}
 		else
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("general.usage_of_preferences"));
+			throw new BuildException(TranslationUtil.getTranslation("general.usage_of_preferences"));
 		}
 	}
 }

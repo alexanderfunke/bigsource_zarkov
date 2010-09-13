@@ -1,6 +1,7 @@
 package de.bigsource.zarkov.ant.nested;
 
 import de.bigsource.zarkov.base.ZarkovTask;
+import de.bigsource.zarkov.base.TranslationUtil;
 
 public class ValueParam extends AbstractParam {
 
@@ -12,11 +13,10 @@ public class ValueParam extends AbstractParam {
 	public String toString() {
 
 		if (_value == null) {
-			task.callException("You have to specify a value for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_value_for")+" " + option);
 			return "";
 		} else {
 			if (_value.indexOf(" ") > -1) {
-//				_value = _value.replace(" ", "\\ ");
 				return "\"" + _value + "\"";
 			}
 			return _value;

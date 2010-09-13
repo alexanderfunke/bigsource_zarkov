@@ -11,7 +11,7 @@ import de.bigsource.zarkov.ant.nested.NamePathParam;
 import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.base.CO;
 import de.bigsource.zarkov.base.FlexStandardTask;
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.fcsh.FcshWrapper;
 
 public class Compc extends FlexStandardTask
@@ -154,12 +154,12 @@ public class Compc extends FlexStandardTask
 			cal = Calendar.getInstance();
 			if (cal.getTimeInMillis() - starttime > _max_execution_time)
 			{
-				throw new BuildException(ZarkovUtil.getTranslation("general.max_execution_time"));
+				throw new BuildException(TranslationUtil.getTranslation("general.max_execution_time"));
 			}
 		}
 
-		ZarkovUtil.onlyFirstError(onlyFirstError, lasterror);
-		ZarkovUtil.checkError(_error, _errormessage);
+		onlyFirstError(onlyFirstError, lasterror);
+		checkError(_error, _errormessage);
 
 	}
 

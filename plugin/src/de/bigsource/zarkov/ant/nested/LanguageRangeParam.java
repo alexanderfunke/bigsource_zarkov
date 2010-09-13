@@ -1,6 +1,7 @@
 package de.bigsource.zarkov.ant.nested;
 
 import de.bigsource.zarkov.base.ZarkovTask;
+import de.bigsource.zarkov.base.TranslationUtil;
 
 public class LanguageRangeParam extends AbstractParam {
 
@@ -12,11 +13,11 @@ public class LanguageRangeParam extends AbstractParam {
 	public String toString() {
 
 		if (_lang == null) {
-			task.callException("You have to specify a lang for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_value_for")+" " + option);
 		}
 
 		if (_range == null) {
-			task.callException("You have to specify a range for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_value_for")+" " + option);
 		}
 
 		if (_lang != null && _range != null) {

@@ -7,7 +7,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 import de.bigsource.zarkov.Settings;
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 
 public class Browser extends Task
 {
@@ -48,12 +48,12 @@ public class Browser extends Task
 				
 				if (_basedir == "" && !_url.startsWith("http://") && !_url.startsWith("https://") && !_url.startsWith("file://"))
 				{
-					throw new BuildException(ZarkovUtil.getTranslation("general.basedir_not_set"));
+					throw new BuildException(TranslationUtil.getTranslation("general.basedir_not_set"));
 				}
 				
 				if (_url == "")
 				{
-					throw new BuildException(ZarkovUtil.getTranslation("browser.url_not_set"));
+					throw new BuildException(TranslationUtil.getTranslation("browser.url_not_set"));
 				}
 				
 				if (!_url.startsWith("http://") && !_url.startsWith("https://") && !_url.startsWith("file://"))
@@ -62,7 +62,7 @@ public class Browser extends Task
 					File page = new File(_url);
 					if (!page.exists())
 					{
-						throw new BuildException(ZarkovUtil.getTranslation("browser.url_not_found").replace("{#URL#}", _url));
+						throw new BuildException(TranslationUtil.getTranslation("browser.url_not_found").replace("{#URL#}", _url));
 					}
 				}
 				
@@ -70,13 +70,13 @@ public class Browser extends Task
 				{
 					if (_browser == "")
 					{
-						throw new BuildException(ZarkovUtil.getTranslation("browser.executable_not_set"));
+						throw new BuildException(TranslationUtil.getTranslation("browser.executable_not_set"));
 					}
 					
 					File executable = new File(_browser);
 					if (!executable.exists())
 					{
-						throw new BuildException(ZarkovUtil.getTranslation("browser.executable_not_set").replace("{#BROWSER#}", _browser));
+						throw new BuildException(TranslationUtil.getTranslation("browser.executable_not_set").replace("{#BROWSER#}", _browser));
 					}
 					
 					Runtime.getRuntime().exec(new String[]
@@ -100,7 +100,7 @@ public class Browser extends Task
 		}
 		else
 		{
-			System.out.println(ZarkovUtil.getTranslation("browser.deactivated"));
+			System.out.println(TranslationUtil.getTranslation("browser.deactivated"));
 		}
 	}
 	

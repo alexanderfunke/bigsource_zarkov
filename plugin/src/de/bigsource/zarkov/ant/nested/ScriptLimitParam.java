@@ -1,6 +1,7 @@
 package de.bigsource.zarkov.ant.nested;
 
 import de.bigsource.zarkov.base.ZarkovTask;
+import de.bigsource.zarkov.base.TranslationUtil;
 
 public class ScriptLimitParam extends AbstractParam {
 
@@ -12,11 +13,11 @@ public class ScriptLimitParam extends AbstractParam {
 	public String toString() {
 
 		if (_max_recursion_depth == null) {
-			task.callException("You have to specify max-recursion-depth for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_value_for")+" " + option);
 		}
 
 		if (max_execution_time == null) {
-			task.callException("You have to specify max-execution-time for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_value_for")+" " + option);
 		}
 
 		if (_max_recursion_depth != null && max_execution_time != null) {

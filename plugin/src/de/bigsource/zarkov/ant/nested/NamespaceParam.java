@@ -2,6 +2,8 @@ package de.bigsource.zarkov.ant.nested;
 
 import java.io.File;
 
+import de.bigsource.zarkov.base.TranslationUtil;
+
 public class NamespaceParam extends AbstractParam {
 
 	private String _uri = "";
@@ -16,7 +18,7 @@ public class NamespaceParam extends AbstractParam {
 		}
 		f = new File(_manifest);
 		if (!f.exists()) {
-			System.out.println(file+" was not found");
+			System.out.println(TranslationUtil.getTranslation("param.specify_a_value_for").replace("{#FILE#}", file));
 		}
 		return _uri+" "+_manifest;
 	}

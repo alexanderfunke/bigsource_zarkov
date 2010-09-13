@@ -9,7 +9,7 @@ import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.ant.nested.ValueParam;
 import de.bigsource.zarkov.base.CO;
 import de.bigsource.zarkov.base.ZarkovTask;
-import de.bigsource.zarkov.base.ZarkovUtil;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.HaxeWrapper;
 
@@ -303,11 +303,11 @@ public class Haxe extends ZarkovTask
 			{
 				
 			}
-			ZarkovUtil.checkError(_error, _errormessage);
+			checkError(_error, _errormessage);
 		}
 		else
 		{
-			throw new BuildException(ZarkovUtil.getTranslation("haxe.executable_not_set"));
+			throw new BuildException(TranslationUtil.getTranslation("haxe.executable_not_set"));
 		}
 	}
 }

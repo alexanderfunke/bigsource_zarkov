@@ -7,8 +7,8 @@ import org.apache.tools.ant.BuildException;
 
 import de.bigsource.zarkov.ant.nested.ValueParam;
 import de.bigsource.zarkov.base.CO;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.base.ZarkovTask;
-import de.bigsource.zarkov.base.ZarkovUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.ApparatWrapper;
 
@@ -55,22 +55,22 @@ public class Concrete extends ZarkovTask
 		
 		if (_apparatDirectory == "")
 		{
-			throw new BuildException("You have not choosen the ApparatDirectory. Please set the task attribute \"apparatdirectory\"");
+			throw new BuildException(TranslationUtil.getTranslation("apparat.apparat_directory_not_set"));
 		}
 		
 		if (!new File(_apparatDirectory).exists())
 		{
-			throw new BuildException("Your ApparatDirectory is wrong!");
+			throw new BuildException(TranslationUtil.getTranslation("apparat.apparat_directory_not_found"));
 		}
 		
 		if (_apparatDirectory == "")
 		{
-			throw new BuildException("You have not choosen the path to scala executable. Please set the task attribute \"scala\"");
+			throw new BuildException(TranslationUtil.getTranslation("apparat.scala_not_set"));
 		}
 		
 		if (!new File(_scala).exists())
 		{
-			throw new BuildException("Your Scala executable doesn't exist!");
+			throw new BuildException(TranslationUtil.getTranslation("apparat.scala_not_found"));
 		}
 		
 		ZarkovTargetsView.addTarget("apparat", output, null);
@@ -79,7 +79,7 @@ public class Concrete extends ZarkovTask
 		{
 			
 		}
-		ZarkovUtil.checkError(_error, _errormessage);
+		checkError(_error, _errormessage);
 		
 	}
 }

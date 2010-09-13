@@ -3,6 +3,7 @@ package de.bigsource.zarkov.ant.nested;
 import java.io.File;
 
 import de.bigsource.zarkov.base.ZarkovTask;
+import de.bigsource.zarkov.base.TranslationUtil;
 
 public class PathAppendParam extends AbstractParam {
 
@@ -16,7 +17,7 @@ public class PathAppendParam extends AbstractParam {
 	public String toString() {
 
 		if (_path == null) {
-			task.callException("You have to specify a path for " + option);
+			task.callException(TranslationUtil.getTranslation("param.specify_a_value_for")+" " + option);
 		}
 
 		if (_path != null) {
