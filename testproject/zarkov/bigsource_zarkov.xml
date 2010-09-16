@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<antlib>
+	<typedef classname="de.bigsource.zarkov.ant.AAsDoc" name="bigsource.aasdoc"/>
+	<typedef classname="de.bigsource.zarkov.ant.ACompc" name="bigsource.acompc"/>
+	<typedef classname="de.bigsource.zarkov.ant.Adl" name="bigsource.adl"/>
+	<typedef classname="de.bigsource.zarkov.ant.AdtCertificate" name="bigsource.adt_certificate"/>
+	<typedef classname="de.bigsource.zarkov.ant.AdtPackage" name="bigsource.adt_package"/>
+	<typedef classname="de.bigsource.zarkov.ant.AdtPrepare" name="bigsource.adt_prepare"/>
+	<typedef classname="de.bigsource.zarkov.ant.AdtSign" name="bigsource.adt_sign"/>
+    <typedef classname="de.bigsource.zarkov.ant.Amxmlc" name="bigsource.amxmlc"/>
+	<typedef classname="de.bigsource.zarkov.ant.AsDoc" name="bigsource.asdoc"/>
+	<typedef classname="de.bigsource.zarkov.ant.Browser" name="bigsource.browser"/>
+	<typedef classname="de.bigsource.zarkov.ant.Compc" name="bigsource.compc"/>
+	<typedef classname="de.bigsource.zarkov.ant.Concrete" name="bigsource.concrete"/>
+	<typedef classname="de.bigsource.zarkov.ant.Coverage" name="bigsource.coverage"/>
+    <typedef classname="de.bigsource.zarkov.ant.FlashPlayer" name="bigsource.flashplayer"/>
+	<typedef classname="de.bigsource.zarkov.ant.Haxe" name="bigsource.haxe"/>
+	<typedef classname="de.bigsource.zarkov.ant.Mtasc" name="bigsource.mtasc"/>
+    <typedef classname="de.bigsource.zarkov.ant.Mxmlc" name="bigsource.mxmlc"/>
+    <typedef classname="de.bigsource.zarkov.ant.Reducer" name="bigsource.reducer"/>
+	<typedef classname="de.bigsource.zarkov.ant.Stripper" name="bigsource.stripper"/>
+	<typedef classname="de.bigsource.zarkov.ant.TDSI" name="bigsource.tdsi"/>
+	
+
+
+</antlib>
