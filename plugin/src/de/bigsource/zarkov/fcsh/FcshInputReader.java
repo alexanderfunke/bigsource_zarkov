@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovMonitor;
 
 public class FcshInputReader implements Runnable
@@ -41,7 +42,7 @@ public class FcshInputReader implements Runnable
 						if (line.toLowerCase().endsWith("java heap)"))
 						{
 							FcshWrapper.quitall();
-							FcshWrapper.getTask().callException("FCSH quit! Will start again at next compilation!");
+							FcshWrapper.getTask().callException(TranslationUtil.getTranslation("fcsh.java_heap"));
 						}
 						else
 						{
@@ -117,7 +118,7 @@ public class FcshInputReader implements Runnable
 					
 					if (line.toLowerCase().endsWith("default arguments may not be interspersed with other options"))
 					{
-						FcshWrapper.getTask().callException("You have spaces in one of your options. FCSH and the other Flex Compiler can't use spaces.\n\n");
+						FcshWrapper.getTask().callException(TranslationUtil.getTranslation("fcsh.spaces_in_path"));
 					}
 					
 					FcshWrapper.getTask().addMessage(line);

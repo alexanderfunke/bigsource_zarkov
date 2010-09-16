@@ -1,5 +1,6 @@
 package de.bigsource.zarkov.wrapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.AbstractCollection;
@@ -8,6 +9,9 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.tools.ant.BuildException;
+
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.base.ZarkovTask;
 import de.bigsource.zarkov.reader.InputReader;
 import de.bigsource.zarkov.views.ZarkovMonitor;
@@ -27,6 +31,12 @@ public class CompilerWrapper
 	
 	public static void call(String executable, String suffix, ArrayList<String> command, ZarkovTask parent, String sdk)
 	{
+		//Fallback if not catched by ant task
+		File execFile = new File(getExecutable(sdk, executable, suffix));
+		if (!execFile.exists())
+		{
+			throw new BuildException(TranslationUtil.getTranslation("general.executable_not_found"));
+		}
 		
 		_task = parent;
 		Calendar cal = Calendar.getInstance();

@@ -1,10 +1,10 @@
 <project basedir="./" name="Zarkov Testtasks">
 
 	<property file="build.${user.name}.properties" />
-	
-	<taskdef file="zarkov/bigsoure_zarkov.xml" classpath="zarkov/bigsource_zarkov.jar"/>
 
-	<target name="test_mxmlc">
+	<taskdef file="zarkov/bigsource_zarkov.xml" classpath="zarkov/bigsource_zarkov.jar"/>
+
+	<target name="	">
 		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
 			<default_size height="600" width="700" />
 			<source_path path="source/as" />
@@ -21,7 +21,7 @@
 			<file_specs path="source/as/App.mxml" />
 		</bigsource.mxmlc>
 	</target>
-	
+
 	<target name="test_mxmlc_flex4_as3">
 		<bigsource.mxmlc basedir="${basedir}" sdk="${flex4.home}">
 			<default_size height="600" width="700" />
@@ -118,7 +118,7 @@
 	</target>
 
 	<target name="test_mtasc_no_mtasc">
-		<bigsource.mtasc>
+		<bigsource.mtasc basedir="${basedir}" >
 			<v />
 			<cp path="source/as" />
 			<main path="source/as/MainClassAS2.as" />
@@ -168,14 +168,14 @@
 
 	<target name="test_mxmlc_air">
 		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
-			<default_frame_rate value="${swf.default.fps}" />
-			<default_background_color value="${swf.default.bgcolor}" />
-			<default_size width="${swf.default.width}" height="${swf.default.height}" />
+			<default_frame_rate value="31" />
+			<default_background_color value="0xffffff" />
+			<default_size width="600" height="300" />
 			<source_path path="source/as" />
 			<library_path path="${flex3.home}/frameworks/libs/air/airframework.swc" />
 			<library_path path="${flex3.home}/frameworks/libs/air/airglobal.swc" />
-			<file_specs path="${swf.application.class}" />
-			<output path="${swf.application.target}" />
+			<output path="deploy/swf/application.swf" />
+			<file_specs path="source/as/AirApp.mxml" />
 			<verbose_stacktraces value="true" />
 		</bigsource.mxmlc>
 	</target>
@@ -231,7 +231,7 @@
 			<storepass value="12345" />
 		</bigsource.adt_sign>
 	</target>
-	
+
 	<target name="test_dependencies" depends="dependency1">
 		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
 			<default_size height="600" width="700" />
@@ -240,7 +240,7 @@
 			<file_specs path="source/as/App.mxml" />
 		</bigsource.mxmlc>
 	</target>
-	
+
 	<target name="test_double_dependencies" depends="double_dependency1, dependency2">
 		<bigsource.mxmlc basedir="${basedir}" sdk="${flex3.home}">
 			<default_size height="600" width="700" />
@@ -249,28 +249,55 @@
 			<file_specs path="source/as/App.mxml" />
 		</bigsource.mxmlc>
 	</target>
-	
+
 	<target name="dependency1" depends="dependency2">
 		<bigsource.browser url="http://www.bigsource.de" />
 	</target>
-	
+
 	<target name="double_dependency1">
 		<bigsource.browser url="http://www.bigsource.de" />
 	</target>
-	
+
 	<target name="dependency2">
 		<bigsource.flashplayer basedir="${basedir}" swf="deploy/swf/application.swf" player="/workspace/flashlibs/flex_sdk_3.3/runtimes/player/mac/Flash Player.app" />
 	</target>
-	
+
 	<target name="test_haxe">
 		<bigsource.haxe basedir="${basedir}" haxe="/usr/bin/haxe">
-			<cp path="source/as/"/>
+			<cp path="source/as/" />
 			<swf_header bgcolor="eeeeee" height="430" width="170" fps="21" />
 			<swf path="example.swf" />
 			<main value="Example" />
 		</bigsource.haxe>
 	</target>
-	
+
+	<target name="test_haxe_no_basedir">
+		<bigsource.haxe haxe="/usr/bin/haxe">
+			<cp path="source/as/" />
+			<swf_header bgcolor="eeeeee" height="430" width="170" fps="21" />
+			<swf path="example.swf" />
+			<main value="Example" />
+		</bigsource.haxe>
+	</target>
+
+	<target name="test_haxe_no_haxe">
+		<bigsource.haxe basedir="${basedir}">
+			<cp path="source/as/" />
+			<swf_header bgcolor="eeeeee" height="430" width="170" fps="21" />
+			<swf path="example.swf" />
+			<main value="Example" />
+		</bigsource.haxe>
+	</target>
+
+	<target name="test_haxe_wrong_haxe">
+		<bigsource.haxe basedir="${basedir}" haxe="/usr/bin/haxe_wrong">
+			<cp path="source/as/" />
+			<swf_header bgcolor="eeeeee" height="430" width="170" fps="21" />
+			<swf path="example.swf" />
+			<main value="Example" />
+		</bigsource.haxe>
+	</target>
+
 	<target name="test_echo">
 		<echo message="${user.name}" />
 	</target>

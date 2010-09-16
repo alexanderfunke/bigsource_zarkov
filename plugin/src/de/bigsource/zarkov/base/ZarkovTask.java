@@ -247,6 +247,10 @@ public class ZarkovTask extends Task
 				
 				// e.printStackTrace();
 			}
+			catch (IllegalMonitorStateException e)
+			{
+			}
+			
 		}
 	}
 	
@@ -296,7 +300,8 @@ public class ZarkovTask extends Task
 			if (errormessage != null)
 			{
 				throw new BuildException(errormessage);
-			} else
+			}
+			else
 			{
 				throw new BuildException(TranslationUtil.getTranslation("general.compiler_had_error"));
 			}

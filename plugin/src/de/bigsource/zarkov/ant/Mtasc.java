@@ -1,5 +1,6 @@
 package de.bigsource.zarkov.ant;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.apache.tools.ant.BuildException;
@@ -10,8 +11,8 @@ import de.bigsource.zarkov.ant.nested.MtascHeaderParam;
 import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.ant.nested.ValueParam;
 import de.bigsource.zarkov.base.CO;
-import de.bigsource.zarkov.base.ZarkovTask;
 import de.bigsource.zarkov.base.TranslationUtil;
+import de.bigsource.zarkov.base.ZarkovTask;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.CompilerWrapper;
 
@@ -166,26 +167,38 @@ public class Mtasc extends ZarkovTask
 	public void execute() throws BuildException
 	{
 		
+		if (_basedir == "")
+		{
+			throw new BuildException(TranslationUtil.getTranslation("general.basedir_not_set"));
+		}
+		
+		if (_mtasc == "" && _mtasc == null && (_mtasc.endsWith("mtasc") || _mtasc.endsWith("mtasc.exe")))
+		{
+			throw new BuildException(TranslationUtil.getTranslation("mtasc.executable_not_set"));
+		}
+		
+		File executable = new File(_mtasc);
+		if (!executable.exists())
+		{
+			throw new BuildException(TranslationUtil.getTranslation("mtasc.executable_not_found"));
+		}
+		
 		ArrayList<String> output = new ArrayList<String>();
 		
 		for (String o : _options.keySet())
 		{
 			output = buildCommand(o, output);
 		}
-		if (_mtasc!="" && (_mtasc.endsWith("mtasc") || _mtasc.endsWith("mtasc.exe")))
+		
+		ZarkovTargetsView.addTarget("mtasc", output, null);
+		CompilerWrapper.call(_mtasc, null, output, this, null);
+		
+		while (_exit != true)
 		{
-			ZarkovTargetsView.addTarget("mtasc", output, null);
-			CompilerWrapper.call(_mtasc, null, output, this, null);
-			while (_exit != true)
-			{
-				
-			}
-			checkError(_error, _errormessage);
+			
 		}
-		else
-		{
-			throw new BuildException(TranslationUtil.getTranslation("mtasc.executable_not_set"));
-		}
+		checkError(_error, _errormessage);
+		
 	}
 	
 }

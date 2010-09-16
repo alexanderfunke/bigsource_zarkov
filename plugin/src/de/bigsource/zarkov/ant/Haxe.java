@@ -1,5 +1,7 @@
 package de.bigsource.zarkov.ant;
 
+import java.io.File;
+
 import org.apache.tools.ant.BuildException;
 
 import de.bigsource.zarkov.ant.nested.EmptyParam;
@@ -16,7 +18,7 @@ import de.bigsource.zarkov.wrapper.HaxeWrapper;
 public class Haxe extends ZarkovTask
 {
 	
-	private String _haxe;
+	private String _haxe = "";
 	
 	public Haxe()
 	{
@@ -283,6 +285,22 @@ public class Haxe extends ZarkovTask
 	public void execute() throws BuildException
 	{
 		
+		if (_basedir == "")
+		{
+			throw new BuildException(TranslationUtil.getTranslation("general.basedir_not_set"));
+		}
+		
+		if (_haxe == "" && _haxe == null && (_haxe.endsWith("haxe") || _haxe.endsWith("haxe.exe")))
+		{
+			throw new BuildException(TranslationUtil.getTranslation("haxe.executable_not_set"));
+		}
+		
+		File executable = new File(_haxe);
+		if (!executable.exists())
+		{
+			throw new BuildException(TranslationUtil.getTranslation("haxe.executable_not_found"));
+		}
+		
 		String output = "";
 		
 		for (String o : _options.keySet())
@@ -294,20 +312,12 @@ public class Haxe extends ZarkovTask
 			}
 		}
 		
-		if (_haxe.endsWith("haxe") || _haxe.endsWith("haxe.exe"))
+		ZarkovTargetsView.addTarget("haxe", output, null);
+		HaxeWrapper.call(output, this, _basedir, _haxe);
+		while (_exit != true)
 		{
 			
-			ZarkovTargetsView.addTarget("haxe", output, null);
-			HaxeWrapper.call(output, this, _basedir, _haxe);
-			while (_exit != true)
-			{
-				
-			}
-			checkError(_error, _errormessage);
 		}
-		else
-		{
-			throw new BuildException(TranslationUtil.getTranslation("haxe.executable_not_set"));
-		}
+		checkError(_error, _errormessage);
 	}
 }

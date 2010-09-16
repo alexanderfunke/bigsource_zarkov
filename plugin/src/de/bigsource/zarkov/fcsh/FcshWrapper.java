@@ -1,10 +1,14 @@
 package de.bigsource.zarkov.fcsh;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.tools.ant.BuildException;
+
 import de.bigsource.zarkov.Settings;
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.base.ZarkovTask;
 import de.bigsource.zarkov.views.ZarkovMonitor;
 import de.bigsource.zarkov.views.ZarkovTargetsView;

@@ -164,11 +164,11 @@ public class AdtCertificate extends AbstractAdt
 					{
 						if (co.pluralize)
 						{
-							output.add(" -" + key + "+=" + val.get(i));
+							output.add("-" + key + "+=" + val.get(i));
 						}
 						else
 						{
-							output.add(" -" + key + " " + val.get(i));
+							output.add("-" + key + " " + val.get(i));
 						}
 					}
 				}
@@ -178,11 +178,11 @@ public class AdtCertificate extends AbstractAdt
 					{
 						if (co.equalize)
 						{
-							output.add(" -" + key + "=" + val.get(0));
+							output.add("-" + key + "=" + val.get(0));
 						}
 						else
 						{
-							output.add(" -" + key + " " + val.get(0));
+							output.add("-" + key + " " + val.get(0));
 						}
 					}
 				}

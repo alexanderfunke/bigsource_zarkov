@@ -62,13 +62,13 @@ public class FlashPlayer extends Task
 				File executable = new File(_player);
 				if (!executable.exists())
 				{
-					throw new BuildException(TranslationUtil.getTranslation("flashplayer.swf_not_set"));
+					throw new BuildException(TranslationUtil.getTranslation("flashplayer.executable_not_found"));
 				}
 				
 				File swfPath = new File(_basedir + "/" + _swf);
 				if (!swfPath.exists())
 				{
-					throw new BuildException(TranslationUtil.getTranslation("flashplayer.executable_not_found").replace("{#PATH#}", _basedir + "/" + _swf));
+					throw new BuildException(TranslationUtil.getTranslation("flashplayer.swf_not_found").replace("{#PATH#}", _basedir + "/" + _swf));
 				}
 				
 				String[] parameters = new String[]

@@ -11,39 +11,37 @@
 	<property name="version" value="0.9.0.0" />
 	<property name="jar.dist" value="bigsource_zarkov.jar" />
 
-	<property name="build.dir" value="." />
-	<property name="build.src" value="${build.dir}/src" />
-	<property name="build.lib" value="${build.dir}/lib" />
-	<property name="build.dest" value="${build.dir}/classes" />
+	<property name="src" value="src" />
+	<property name="lib" value="lib" />
+	<property name="resources" value="resources" />
+	<property name="dest" value="classes" />
 
 	<property name="javac.source" value="1.6" />
 	<property name="javac.target" value="1.6" />
-	<property name="dist" value="${build.dir}/dist" />
+	<property name="dist" value="dist" />
+	<property name="testdist" value="../testproject/zarkov" />
 
 	<path id="classpath">
-		<fileset dir="${build.lib}">
+		<fileset dir="${lib}">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
-	<path id="classpath.singlejar">
-		<pathelement location="${build.lib}" />
-	</path>
 
 	<target name="build" depends="clean, smalljar" />
-	
-    <target name="prepare" depends="clean">
-		<mkdir dir="${build.dest}" />
+
+	<target name="prepare" depends="clean">
+		<mkdir dir="${dest}" />
 		<mkdir dir="${dist}" />
-    	<copy todir="${build.dest}" filtering="yes">
-			<fileset dir="${build.src}">
+		<copy todir="${dest}" filtering="yes">
+			<fileset dir="${src}">
 				<include name="**/*.properties" />
 			</fileset>
 		</copy>
 	</target>
 
-    <target name="prepare.smalljar" depends="prepare">
+	<target name="prepare.smalljar" depends="prepare">
 		<copy todir="${dist}/lib" filtering="yes">
-			<fileset dir="${build.lib}">
+			<fileset dir="${lib}">
 				<include name="**/*.jar" />
 			</fileset>
 		</copy>
@@ -51,33 +49,35 @@
 
 	<target name="smalljar" depends="clean, prepare.smalljar">
 
-		<javac
-			encoding="utf-8"
-	    	source="${javac.source}"
-	    	target="${javac.target}"
-	    	srcdir="${build.src}"
-	    	destdir="${build.dest}">
+		<javac encoding="utf-8" source="${javac.source}" target="${javac.target}" srcdir="${src}" destdir="${dest}">
 			<classpath refid="classpath" />
 		</javac>
-		
-        <pathconvert targetos="unix" property="manifest.classpath" refid="classpath" pathsep=" ">
-        	<map from="${user.dir}/lib/" to="lib/" />
-        </pathconvert>
 
-		<echo message="manifest.classpath = ${manifest.classpath}" />
+		<pathconvert targetos="unix" property="manifest.classpath" refid="classpath" pathsep=" ">
+			<map from="${user.dir}/lib/" to="lib/" />
+		</pathconvert>
 
-        <jar destfile="${dist}/${jar.dist}">
-			<fileset dir="${build.dest}" />
+		<jar destfile="${dist}/${jar.dist}">
+			<fileset dir="${dest}" />
+			<fileset dir="${resources}" />
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
+
+		<copy todir="${testdist}" filtering="yes">
+			<fileset dir="${dist}">
+				<include name="**/*.jar" />
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
+
 	</target>
 
-   <target name="clean">
+	<target name="clean">
 		<delete failonerror="false" includeemptydirs="true">
-			<fileset dir="${build.dest}" includes="**/*.class" />
+			<fileset dir="${dest}" includes="**/*.class" />
 		</delete>
 		<delete failonerror="false" file="${jar.dist}" />
 	</target>
@@ -96,29 +96,21 @@
 	<target name="javadoc">
 		<mkdir dir="${doc.apidoc}" />
 
-		<javadoc destdir="${doc.apidoc}"
-			author="true"
-			version="true"
-			use="true"
-			Encoding="UTF-8"
-			charset="utf-8"
-			docencoding="utf-8"
-			Overview="docs/overview.html"
-			stylesheetfile="docs/javadoc.css">
+		<javadoc destdir="${doc.apidoc}" author="true" version="true" use="true" Encoding="UTF-8" charset="utf-8" docencoding="utf-8" Overview="docs/overview.html" stylesheetfile="docs/javadoc.css">
 
-			<packageset dir="${build.src}" defaultexcludes="yes" />
+			<packageset dir="${src}" defaultexcludes="yes" />
 
 			<doctitle>
-                <![CDATA[BigSource Zarkov Standalone]]>
+				<![CDATA[BigSource Zarkov Standalone]]>
 			</doctitle>
 			<header>
-                <![CDATA[<img src="http://www.bigsource.de/" alt="BigSource" width="142" height="26" />]]>
+				<![CDATA[<img src="http://www.bigsource.de/" alt="BigSource" width="142" height="26" />]]>
 			</header>
 			<bottom>
-                <![CDATA[<i>Copyright &#169; 2010 BigSource GbR. All Rights Reserved.</i>]]>
+				<![CDATA[<i>Copyright &#169; 2010 BigSource GbR. All Rights Reserved.</i>]]>
 			</bottom>
-		</javadoc>
+	</javadoc>
 
-	</target>
+</target>
 
 </project>

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
 
+import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovMonitor;
 
 public class FcshThread extends Thread
@@ -54,7 +55,7 @@ public class FcshThread extends Thread
 		}
 		catch (IOException e)
 		{
-			throw new BuildException("FCSH not found. Please check the sdk path. It should be set to the basedir of the sdk, not the bin folder.");
+			throw new BuildException(TranslationUtil.getTranslation("fcsh.executable_not_found"));
 		}
 	}
 	
