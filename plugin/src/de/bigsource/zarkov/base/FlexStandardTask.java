@@ -17,6 +17,7 @@ import de.bigsource.zarkov.ant.nested.NameParam;
 import de.bigsource.zarkov.ant.nested.NamespaceParam;
 import de.bigsource.zarkov.ant.nested.PathAppendParam;
 import de.bigsource.zarkov.ant.nested.PathParam;
+import de.bigsource.zarkov.ant.nested.RSLParam;
 import de.bigsource.zarkov.ant.nested.ScriptLimitParam;
 import de.bigsource.zarkov.ant.nested.ValueParam;
 
@@ -1758,15 +1759,14 @@ public class FlexStandardTask extends ZarkovTask
 	/*
 	 * runtime-shared-library-path
 	 */
-	// TODO: Check Param
-	public void addConfiguredRuntime_shared_library_path(ValueParam arg)
+	public void addConfiguredRuntime_shared_library_path(RSLParam arg)
 	{
 		arg.task = this;
 		arg.option = "runtime_shared_library_path";
 		addToArglist("runtime-shared-library-path", arg);
 	}
 	
-	public void addConfiguredRslp(ValueParam arg)
+	public void addConfiguredRslp(RSLParam arg)
 	{
 		arg.task = this;
 		arg.option = "rslp";

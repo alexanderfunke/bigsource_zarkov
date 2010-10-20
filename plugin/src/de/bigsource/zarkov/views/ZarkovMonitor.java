@@ -39,182 +39,182 @@ import de.bigsource.zarkov.Activator;
 
 public class ZarkovMonitor extends ViewPart
 {
-    private StyledText textfield;
-    private static StyledText _textfield;
-    public static Display _display;
-    private static ArrayList<MessageItem> _history;
-    private Action action1;
-
-    /**
-     * The constructor.
-     */
-    public ZarkovMonitor()
-    {
-    }
-
-    /**
-     * This is a callback that will allow us to create the viewer and initialize
-     * it.
-     */
-    public void createPartControl(Composite parent)
-    {
-
-	if (ZarkovMonitor._history == null)
+	private StyledText textfield;
+	private static StyledText _textfield;
+	public static Display _display;
+	private static ArrayList<MessageItem> _history;
+	private Action action1;
+	
+	/**
+	 * The constructor.
+	 */
+	public ZarkovMonitor()
 	{
-	    ZarkovMonitor._history = new ArrayList<MessageItem>();
 	}
-
-	textfield = new StyledText(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.WRAP);
-	textfield.setEditable(false);
-	textfield.setTopPixel(50000000);
-	Font font = new Font(parent.getDisplay(), "Courier", 11, SWT.NORMAL);
-	textfield.setFont(font);
-	ZarkovMonitor._display = parent.getDisplay();
-	ZarkovMonitor._textfield = textfield;
-	for (int i = 0; i < ZarkovMonitor._history.size(); i++)
+	
+	/**
+	 * This is a callback that will allow us to create the viewer and initialize
+	 * it.
+	 */
+	public void createPartControl(Composite parent)
 	{
-	    MessageItem mi = ZarkovMonitor._history.get(i);
-	    _textfield.append(mi.message + "\n");
+		
+		if (ZarkovMonitor._history == null)
+		{
+			ZarkovMonitor._history = new ArrayList<MessageItem>();
+		}
+		
+		textfield = new StyledText(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.WRAP);
+		textfield.setEditable(false);
+		textfield.setTopPixel(50000000);
+		Font font = new Font(parent.getDisplay(), "Courier", 11, SWT.NORMAL);
+		textfield.setFont(font);
+		ZarkovMonitor._display = parent.getDisplay();
+		ZarkovMonitor._textfield = textfield;
+		for (int i = 0; i < ZarkovMonitor._history.size(); i++)
+		{
+			MessageItem mi = ZarkovMonitor._history.get(i);
+			_textfield.append(mi.message + "\n");
+		}
+		
+		textfield.addLineStyleListener(new LineStyleListener()
+		{
+			public void lineGetStyle(LineStyleEvent event)
+			{
+				
+				String line = event.lineText;
+				int cursor = -1;
+				
+				LinkedList<StyleRange> list = new LinkedList<StyleRange>();
+				while ((cursor = line.indexOf("----------- COMMAND -----------", cursor + 1)) >= 0)
+				{
+					list.add(getHighlightStyle(event.lineOffset + cursor, "----------- COMMAND -----------".length()));
+				}
+				
+				while ((cursor = line.indexOf("----------- OUTPUT -----------", cursor + 1)) >= 0)
+				{
+					list.add(getHighlightStyle(event.lineOffset + cursor, "----------- OUTPUT -----------".length()));
+				}
+				
+				while ((cursor = line.indexOf("----------- FCSH 9 stopped! -----------", cursor + 1)) >= 0)
+				{
+					list.add(getHighlightStyle(event.lineOffset + cursor, "----------- FCSH 9 stopped! -----------".length()));
+				}
+				
+				while ((cursor = line.indexOf("----------- FCSH 10 stopped! -----------", cursor + 1)) >= 0)
+				{
+					list.add(getHighlightStyle(event.lineOffset + cursor, "----------- FCSH 10 stopped! -----------".length()));
+				}
+				
+				while ((cursor = line.indexOf("------------ FCSH 9 started!------------", cursor + 1)) >= 0)
+				{
+					list.add(getHighlightStyle(event.lineOffset + cursor, "------------ FCSH 9 started!------------".length()));
+				}
+				
+				while ((cursor = line.indexOf("------------ FCSH 10 started!------------", cursor + 1)) >= 0)
+				{
+					list.add(getHighlightStyle(event.lineOffset + cursor, "------------ FCSH 10 started!------------".length()));
+				}
+				
+				event.styles = (StyleRange[]) list.toArray(new StyleRange[list.size()]);
+			}
+		});
+		
+		makeActions();
+		contributeToActionBars();
 	}
-
-	textfield.addLineStyleListener(new LineStyleListener()
+	
+	private StyleRange getHighlightStyle(int startOffset, int length)
 	{
-	    public void lineGetStyle(LineStyleEvent event)
-	    {
-
-		String line = event.lineText;
-		int cursor = -1;
-
-		LinkedList<StyleRange> list = new LinkedList<StyleRange>();
-		while ((cursor = line.indexOf("----------- COMMAND -----------", cursor + 1)) >= 0)
-		{
-		    list.add(getHighlightStyle(event.lineOffset + cursor, "----------- COMMAND -----------".length()));
-		}
-
-		while ((cursor = line.indexOf("----------- OUTPUT -----------", cursor + 1)) >= 0)
-		{
-		    list.add(getHighlightStyle(event.lineOffset + cursor, "----------- OUTPUT -----------".length()));
-		}
-
-		while ((cursor = line.indexOf("----------- FCSH 9 stopped! -----------", cursor + 1)) >= 0)
-		{
-		    list.add(getHighlightStyle(event.lineOffset + cursor, "----------- FCSH 9 stopped! -----------".length()));
-		}
-
-		while ((cursor = line.indexOf("----------- FCSH 10 stopped! -----------", cursor + 1)) >= 0)
-		{
-		    list.add(getHighlightStyle(event.lineOffset + cursor, "----------- FCSH 10 stopped! -----------".length()));
-		}
-
-		while ((cursor = line.indexOf("------------ FCSH 9 started!------------", cursor + 1)) >= 0)
-		{
-		    list.add(getHighlightStyle(event.lineOffset + cursor, "------------ FCSH 9 started!------------".length()));
-		}
-
-		while ((cursor = line.indexOf("------------ FCSH 10 started!------------", cursor + 1)) >= 0)
-		{
-		    list.add(getHighlightStyle(event.lineOffset + cursor, "------------ FCSH 10 started!------------".length()));
-		}
-
-		event.styles = (StyleRange[]) list.toArray(new StyleRange[list.size()]);
-	    }
-	});
-
-	makeActions();
-	contributeToActionBars();
-    }
-
-    private StyleRange getHighlightStyle(int startOffset, int length)
-    {
-	StyleRange styleRange = new StyleRange();
-	styleRange.start = startOffset;
-	styleRange.length = length;
-	styleRange.font = new Font(textfield.getDisplay(), "Courier", 12, SWT.BOLD);
-	return styleRange;
-    }
-
-    private void contributeToActionBars()
-    {
-	IActionBars bars = getViewSite().getActionBars();
-	fillLocalPullDown(bars.getMenuManager());
-	fillLocalToolBar(bars.getToolBarManager());
-    }
-
-    private void fillLocalPullDown(IMenuManager manager)
-    {
-    }
-
-    private void fillLocalToolBar(IToolBarManager manager)
-    {
-	manager.add(action1);
-    }
-
-    private void makeActions()
-    {
-	action1 = new Action()
-	{
-	    public void run()
-	    {
-		ZarkovMonitor.clear();
-	    }
-	};
-	action1.setText("Clear Monitor");
-	action1.setToolTipText("Clear Monitor");
-	action1.setImageDescriptor(ImageDescriptor.createFromURL(FileLocator.find(Activator.getDefault().getBundle(), new Path("icons/bin.png"), null)));
-    }
-
-    /**
-     * Passing the focus request to the viewer's control.
-     */
-    public void setFocus()
-    {
-    }
-
-    public static void addMessage(String msg)
-    {
-	final String message = msg;
-	if (_display != null)
-	{
-	    _display.syncExec(new Runnable()
-	    {
-		public void run()
-		{
-		    if (_textfield != null)
-		    {
-			_textfield.append(message + "\n");
-			_textfield.setTopPixel(50000000);
-		    }
-		}
-	    });
+		StyleRange styleRange = new StyleRange();
+		styleRange.start = startOffset;
+		styleRange.length = length;
+		styleRange.font = new Font(textfield.getDisplay(), "Courier", 12, SWT.BOLD);
+		return styleRange;
 	}
-	else
+	
+	private void contributeToActionBars()
 	{
-	    if (ZarkovMonitor._history == null)
-	    {
-		ZarkovMonitor._history = new ArrayList<MessageItem>();
-	    }
-	    MessageItem mi = new MessageItem();
-	    mi.message = msg;
-	    _history.add(mi);
+		IActionBars bars = getViewSite().getActionBars();
+		fillLocalPullDown(bars.getMenuManager());
+		fillLocalToolBar(bars.getToolBarManager());
 	}
-    }
-
-    public static void clear()
-    {
-	if (_display != null)
+	
+	private void fillLocalPullDown(IMenuManager manager)
 	{
-	    _display.syncExec(new Runnable()
-	    {
-		public void run()
+	}
+	
+	private void fillLocalToolBar(IToolBarManager manager)
+	{
+		manager.add(action1);
+	}
+	
+	private void makeActions()
+	{
+		action1 = new Action()
 		{
-		    if (_textfield != null)
-		    {
-			_textfield.setText("");
-			_textfield.setTopPixel(50000000);
-		    }
-		}
-	    });
+			public void run()
+			{
+				ZarkovMonitor.clear();
+			}
+		};
+		action1.setText("Clear Monitor");
+		action1.setToolTipText("Clear Monitor");
+		action1.setImageDescriptor(ImageDescriptor.createFromURL(FileLocator.find(Activator.getDefault().getBundle(), new Path("icons/bin.png"), null)));
 	}
-    }
-
+	
+	/**
+	 * Passing the focus request to the viewer's control.
+	 */
+	public void setFocus()
+	{
+	}
+	
+	public static void addMessage(String msg)
+	{
+		final String message = msg;
+		if (_display != null)
+		{
+			_display.syncExec(new Runnable()
+			{
+				public void run()
+				{
+					if (_textfield != null)
+					{
+						_textfield.append(message + "\n");
+						_textfield.setTopPixel(50000000);
+					}
+				}
+			});
+		}
+		else
+		{
+			if (ZarkovMonitor._history == null)
+			{
+				ZarkovMonitor._history = new ArrayList<MessageItem>();
+			}
+			MessageItem mi = new MessageItem();
+			mi.message = msg;
+			_history.add(mi);
+		}
+	}
+	
+	public static void clear()
+	{
+		if (_display != null)
+		{
+			_display.syncExec(new Runnable()
+			{
+				public void run()
+				{
+					if (_textfield != null)
+					{
+						_textfield.setText("");
+						_textfield.setTopPixel(50000000);
+					}
+				}
+			});
+		}
+	}
+	
 }
