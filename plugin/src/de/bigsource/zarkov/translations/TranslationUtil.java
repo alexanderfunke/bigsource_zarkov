@@ -116,9 +116,9 @@ public class TranslationUtil
 		}
 		
 		String value = "";
-		if (_locales.get(Locale.getDefault()) != null)
+		if (_locales.get(Locale.getDefault().toString()) != null)
 		{
-			value = _locales.get(Locale.getDefault()).get(key);
+			value = _locales.get(Locale.getDefault().toString()).get(key);
 			if (value == null)
 			{
 				value = _locales.get("en_US").get(key);
