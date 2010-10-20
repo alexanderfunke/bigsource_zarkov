@@ -1,7 +1,7 @@
 package de.bigsource.zarkov.ant.nested;
 
 import de.bigsource.zarkov.base.ZarkovTask;
-import de.bigsource.zarkov.base.TranslationUtil;
+import de.bigsource.zarkov.translations.TranslationUtil;
 
 public class LanguageRangeParam extends AbstractParam {
 

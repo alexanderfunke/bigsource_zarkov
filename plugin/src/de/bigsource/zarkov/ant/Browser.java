@@ -7,7 +7,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 import de.bigsource.zarkov.Settings;
-import de.bigsource.zarkov.base.TranslationUtil;
+import de.bigsource.zarkov.translations.TranslationUtil;
 
 public class Browser extends Task
 {

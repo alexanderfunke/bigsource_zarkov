@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
 
-import de.bigsource.zarkov.base.TranslationUtil;
+import de.bigsource.zarkov.translations.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovMonitor;
 
 public class FcshThread extends Thread

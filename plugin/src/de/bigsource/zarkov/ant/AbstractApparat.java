@@ -9,7 +9,7 @@ import de.bigsource.zarkov.ant.nested.BooleanParam;
 import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.base.CO;
 import de.bigsource.zarkov.base.ZarkovTask;
-import de.bigsource.zarkov.base.TranslationUtil;
+import de.bigsource.zarkov.translations.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.ApparatWrapper;
 

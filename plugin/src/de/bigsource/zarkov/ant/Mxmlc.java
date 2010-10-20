@@ -10,8 +10,8 @@ import de.bigsource.zarkov.ant.nested.PathParam;
 import de.bigsource.zarkov.base.CO;
 import de.bigsource.zarkov.base.EclipseUtil;
 import de.bigsource.zarkov.base.FlexStandardTask;
-import de.bigsource.zarkov.base.TranslationUtil;
 import de.bigsource.zarkov.fcsh.FcshWrapper;
+import de.bigsource.zarkov.translations.TranslationUtil;
 
 public class Mxmlc extends FlexStandardTask
 {

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 
-import de.bigsource.zarkov.base.TranslationUtil;
+import de.bigsource.zarkov.translations.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovMonitor;
 
 public class FcshInputReader implements Runnable

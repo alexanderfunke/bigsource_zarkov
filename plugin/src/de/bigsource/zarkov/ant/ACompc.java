@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 import org.apache.tools.ant.BuildException;
 
-import de.bigsource.zarkov.base.TranslationUtil;
+import de.bigsource.zarkov.translations.TranslationUtil;
 import de.bigsource.zarkov.views.ZarkovTargetsView;
 import de.bigsource.zarkov.wrapper.CompilerWrapper;
 

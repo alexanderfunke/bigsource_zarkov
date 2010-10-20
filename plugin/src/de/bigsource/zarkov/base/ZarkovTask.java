@@ -15,6 +15,7 @@ import de.bigsource.zarkov.ant.nested.AbstractParam;
 import de.bigsource.zarkov.ant.nested.DefineParam;
 import de.bigsource.zarkov.ant.nested.PathAppendParam;
 import de.bigsource.zarkov.ant.nested.ValueParam;
+import de.bigsource.zarkov.translations.TranslationUtil;
 
 public class ZarkovTask extends Task
 {

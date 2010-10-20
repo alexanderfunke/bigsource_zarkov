@@ -2,7 +2,7 @@ package de.bigsource.zarkov.ant.nested;
 
 import java.io.File;
 
-import de.bigsource.zarkov.base.TranslationUtil;
+import de.bigsource.zarkov.translations.TranslationUtil;
 
 public class NamespaceParam extends AbstractParam {
 
