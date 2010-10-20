@@ -3,7 +3,7 @@
    <description url="http://update.bigsource.de/update">
       Update Site
    </description>
-   <feature url="features/de.bigsource.zarkov_0.9.0.3.jar" id="de.bigsource.zarkov" version="0.9.0.3">
+   <feature url="features/de.bigsource.zarkov_0.9.0.4.jar" id="de.bigsource.zarkov" version="0.9.0.4">
       <category name="Flash"/>
    </feature>
    <category-def name="Flash" label="Flash"/>

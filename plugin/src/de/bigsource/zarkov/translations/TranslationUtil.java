@@ -8,6 +8,7 @@ public class TranslationUtil
 {
 	
 	private static HashMap<String, HashMap<String, String>> _locales;
+	private static boolean _initialized = false;
 	
 	public static void initialize()
 	{
@@ -104,10 +105,16 @@ public class TranslationUtil
 		en_US.put("fcsh_spaces_in_path", "You have spaces in one of your options. FCSH and the other Flex Compiler can't use spaces.\n\n");
 		
 		_locales.put("en_US", en_US);
+		
+		_initialized = true;
 	}
 	
 	public static String getTranslation(String key)
 	{
+		if(!_initialized){
+			initialize();
+		}
+		
 		String value = "";
 		if (_locales.get(Locale.getDefault()) != null)
 		{

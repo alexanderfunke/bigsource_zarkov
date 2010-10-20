@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BigSource Zarkov
 Bundle-SymbolicName: de.bigsource.zarkov;singleton:=true
-Bundle-Version: 0.9.0.3
+Bundle-Version: 0.9.0.4
 Bundle-ClassPath: de.bigsource/
 Bundle-Activator: de.bigsource.zarkov.Activator
 Bundle-Vendor: BigSource GbR

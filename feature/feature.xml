@@ -2,7 +2,7 @@
 <feature
       id="de.bigsource.zarkov"
       label="BigSource Zarkov"
-      version="0.9.0.3"
+      version="0.9.0.4"
       provider-name="BigSource GbR"
       plugin="de.bigsource.zarkov">
 
@@ -39,7 +39,7 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
          id="de.bigsource.zarkov"
          download-size="48"
          install-size="0"
-         version="0.9.0.3"
+         version="0.9.0.4"
          unpack="false"/>
 
 </feature>
